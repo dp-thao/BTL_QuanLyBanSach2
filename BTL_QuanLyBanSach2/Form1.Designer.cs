@@ -40,8 +40,10 @@ namespace BTL_QuanLyBanSach2
             this.tìmSáchTheoThểLoạiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tìmSáchTheoTácGiảToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tìmSáchTheoNhàXuấtBảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoThốngKêToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.giớiThiệuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,9 +55,11 @@ namespace BTL_QuanLyBanSach2
             this.nhậpBánSáchToolStripMenuItem,
             this.tìmKiếmToolStripMenuItem,
             this.báoCáoThốngKêToolStripMenuItem,
-            this.giớiThiệuToolStripMenuItem});
+            this.giớiThiệuToolStripMenuItem,
+            this.dSToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(1093, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -115,7 +119,8 @@ namespace BTL_QuanLyBanSach2
             this.tìmKiếmToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tìmSáchTheoThểLoạiToolStripMenuItem,
             this.tìmSáchTheoTácGiảToolStripMenuItem,
-            this.tìmSáchTheoNhàXuấtBảnToolStripMenuItem});
+            this.tìmSáchTheoNhàXuấtBảnToolStripMenuItem,
+            this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem});
             this.tìmKiếmToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tìmKiếmToolStripMenuItem.Name = "tìmKiếmToolStripMenuItem";
             this.tìmKiếmToolStripMenuItem.Size = new System.Drawing.Size(99, 26);
@@ -143,6 +148,13 @@ namespace BTL_QuanLyBanSach2
             this.tìmSáchTheoNhàXuấtBảnToolStripMenuItem.Text = "Tìm sách theo Nhà xuất bản";
             this.tìmSáchTheoNhàXuấtBảnToolStripMenuItem.Click += new System.EventHandler(this.tìmSáchTheoNhàXuấtBảnToolStripMenuItem_Click);
             // 
+            // tìmKiếmPhiếuNhậpSáchToolStripMenuItem
+            // 
+            this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem.Name = "tìmKiếmPhiếuNhậpSáchToolStripMenuItem";
+            this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem.Size = new System.Drawing.Size(311, 26);
+            this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem.Text = "Tìm kiếm Phiếu nhập sách";
+            this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem.Click += new System.EventHandler(this.tìmKiếmPhiếuNhậpSáchToolStripMenuItem_Click);
+            // 
             // báoCáoThốngKêToolStripMenuItem
             // 
             this.báoCáoThốngKêToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -157,6 +169,13 @@ namespace BTL_QuanLyBanSach2
             this.giớiThiệuToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
             this.giớiThiệuToolStripMenuItem.Text = "Giới thiệu";
             // 
+            // dSToolStripMenuItem
+            // 
+            this.dSToolStripMenuItem.Name = "dSToolStripMenuItem";
+            this.dSToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.dSToolStripMenuItem.Text = "DS";
+            this.dSToolStripMenuItem.Click += new System.EventHandler(this.dSToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -167,6 +186,7 @@ namespace BTL_QuanLyBanSach2
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuanLyBanSach";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -190,6 +210,8 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.ToolStripMenuItem tìmSáchTheoNhàXuấtBảnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem báoCáoThốngKêToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem giớiThiệuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tìmKiếmPhiếuNhậpSáchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dSToolStripMenuItem;
     }
 }
 

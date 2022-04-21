@@ -19,103 +19,55 @@ namespace BTL_QuanLyBanSach2
             InitializeComponent();
         }
 
-        string SoPN, MaNXB, MaSach, TenSach, MaTG, MaTL;
+        string SoPN, MaSach, MaNXB, TenSach, MaTG, MaTL;
         DateTime NgayNhap;
         float SoLuongNhap;
         float GiaNhap;
-        int kiemtra = 0;
 
         public void LayThongTin()
         {
             SoPN = txtSoPhieuNhap.Text;
             NgayNhap = DateTime.Parse(dateNgayNhap.Text);
-            MaNXB = txtNhaXuatBan.Text;
             MaSach = txtMaSach.Text;
+            MaNXB = cbMaNXB.SelectedValue.ToString();
             SoLuongNhap = float.Parse(txtSoLuongNhap.Text);
             GiaNhap = float.Parse(txtGiaNhap.Text);
             TenSach = txtTenSach.Text;
-            MaTG = txtMaTG.Text;
-            MaTL = txtMaTL.Text;
+            MaTG = cbMaTG.SelectedValue.ToString();
+            MaTL = cbMaTL.SelectedValue.ToString();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            LayThongTin();
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             SqlConnection conn = new SqlConnection(constr);
             conn.Open();
 
-            Them_MaTL(constr, conn);
-            Them_MaTG(constr, conn);
-            ThemSach(constr, conn);
-            ThemPhieuNhap(constr, conn);
-            ThemCTPN(constr, conn);
+            load_DS_CTPN(constr);
+
+            if (KiemTraDL() == false)
+            {
+                MessageBox.Show("Chưa đủ dữ liệu");
+            }
+            else
+            {
+                LayThongTin();
+                ThemSach(constr, conn);
+            }
             conn.Close();
         }
 
-        // Thêm Mã thể loại
-        public void Them_MaTL(string constr, SqlConnection conn)
+        // Hàm kiểm tra dữ liệu trống
+        public bool KiemTraDL()
         {
-            string sql = "SELECT * FROM tblTheLoai WHERE sMaTL = '" + txtMaTL.Text + "'";
-            
-            if (!KiemTraKhoaChinh(constr, conn, sql))
+            if (txtSoPhieuNhap.Text == "" || txtMaSach.Text == "" || txtSoLuongNhap.Text == ""
+                || txtGiaNhap.Text == "" || txtTenSach.Text == "")
             {
-                SqlCommand cmd_MaTL = new SqlCommand(constr, conn);
-                cmd_MaTL.CommandType = CommandType.Text;
-                cmd_MaTL.CommandText = "INSERT INTO tblTheLoai (sMaTL) VALUES (N'" + MaTL + "')";
-                int testCmd_MaTL = cmd_MaTL.ExecuteNonQuery();
-                if (testCmd_MaTL > 0)
-                {
-                    MessageBox.Show("Thêm Thể loại thành công", "Thông báo");
-                }
-                else
-                {
-                    MessageBox.Show("Thêm Thể loại thất bại", "Thông báo");
-                }
+                return false;
             }
-        }
-
-        // Thêm Mã nhà xuất bản
-        public void Them_MaNXB(string constr, SqlConnection conn)
-        {
-            string sql = "SELECT * FROM tblNhaXuatBan WHERE sMaNXB = '" + txtNhaXuatBan.Text + "'";
-           
-            if (!KiemTraKhoaChinh(constr, conn, sql))
+            else
             {
-                SqlCommand cmd_MaNXB = new SqlCommand(constr, conn);
-                cmd_MaNXB.CommandType = CommandType.Text;
-                cmd_MaNXB.CommandText = "INSERT INTO tblNhaXuatBan (sMaNXB) VALUES (N'" + MaNXB + "')";
-                int testCmd_MaNXB = cmd_MaNXB.ExecuteNonQuery();
-                if (testCmd_MaNXB > 0)
-                {
-                    MessageBox.Show("Thêm Mã NXB thành công", "Thông báo");
-                }
-                else
-                {
-                    MessageBox.Show("Thêm Mã NXB thất bại", "Thông báo");
-                }
-            }
-        }
-
-        // Thêm Mã tác giả
-        public void Them_MaTG(string constr, SqlConnection conn)
-        {
-            string sql = "SELECT * FROM tblTacGia WHERE sMaTG = '" + txtMaTG.Text + "'";
-            
-            if (!KiemTraKhoaChinh(constr, conn, sql))
-            {
-                SqlCommand cmd_MaTG = new SqlCommand(constr, conn);
-                cmd_MaTG.CommandType = CommandType.Text;
-                cmd_MaTG.CommandText = "INSERT INTO tblTacGia (sMaTG) VALUES (N'" + MaTG + "')";
-                int testCmd_MaTG = cmd_MaTG.ExecuteNonQuery();
-                if (testCmd_MaTG > 0)
-                {
-                    MessageBox.Show("Thêm Tác giả thành công", "Thông báo");
-                }
-                else
-                {
-                    MessageBox.Show("Thêm Tác giả thất bại", "Thông báo");
-                }
+                return true;
             }
         }
 
@@ -138,7 +90,8 @@ namespace BTL_QuanLyBanSach2
                 int testCmd_Sach = cmd_Sach.ExecuteNonQuery();
                 if (testCmd_Sach > 0)
                 {
-                    MessageBox.Show("Thêm Sách thành công", "Thông báo");
+                    ThemPhieuNhap(constr, conn);
+                    //MessageBox.Show("Thêm Sách thành công", "Thông báo");
                 }
                 else
                 {
@@ -163,39 +116,53 @@ namespace BTL_QuanLyBanSach2
                 int testCmd_PhieuNhap = cmd_PhieuNhap.ExecuteNonQuery();
                 if (testCmd_PhieuNhap > 0)
                 {
-                    MessageBox.Show("Thêm Phiếu nhập thành công", "Thông báo");
+                    ThemCTPN(constr, conn);
+                    //MessageBox.Show("Thêm Phiếu nhập thành công", "Thông báo");
                 }
                 else
                 {
                     MessageBox.Show("Thêm Phiếu nhập thất bại", "Thông báo");
                 }
-            }            
+            }
+            else
+            {
+                ThemCTPN(constr, conn);
+            }
+            
         }
 
         // Chi tiết phiếu nhập
         public void ThemCTPN(string constr, SqlConnection conn)
         {
-            SqlCommand cmd_CTPN = new SqlCommand(constr, conn);
-            cmd_CTPN.CommandType = CommandType.StoredProcedure;
-            cmd_CTPN.CommandText = "dbo.Proc_ThemCTPN";
-            cmd_CTPN.Parameters.AddWithValue("@SoPN", SoPN);
-            cmd_CTPN.Parameters.AddWithValue("@MaSach", MaSach);
-            cmd_CTPN.Parameters.AddWithValue("@SoLuongNhap", SoLuongNhap);
-            cmd_CTPN.Parameters.AddWithValue("@GiaNhap", GiaNhap);
-
-            int testCmd_CTPN = cmd_CTPN.ExecuteNonQuery();
-            if (testCmd_CTPN > 0)
+            string sql = "SELECT * FROM tblChiTietPhieuNhap WHERE sSoPN = N'" + txtSoPhieuNhap.Text + "' AND sMaSach = N'" + txtMaSach.Text + "'";
+            if (!KiemTraKhoaChinh(constr, conn, sql))
             {
-                MessageBox.Show("Thêm CTPN thành công", "Thông báo");
-                load_DS_CTPN(constr);
+                SqlCommand cmd_CTPN = new SqlCommand(constr, conn);
+                cmd_CTPN.CommandType = CommandType.StoredProcedure;
+                cmd_CTPN.CommandText = "dbo.Proc_ThemCTPN";
+                cmd_CTPN.Parameters.AddWithValue("@SoPN", SoPN);
+                cmd_CTPN.Parameters.AddWithValue("@MaSach", MaSach);
+                cmd_CTPN.Parameters.AddWithValue("@SoLuongNhap", SoLuongNhap);
+                cmd_CTPN.Parameters.AddWithValue("@GiaNhap", GiaNhap);
+
+                int testCmd_CTPN = cmd_CTPN.ExecuteNonQuery();
+                if (testCmd_CTPN > 0)
+                {
+                    MessageBox.Show("Thêm CTPN thành công", "Thông báo");
+                    load_DS_CTPN(constr);
+                }
+                else
+                {
+                    MessageBox.Show("Thêm CTPN thất bại", "Thông báo");
+                }
             }
             else
             {
-                MessageBox.Show("Thêm CTPN thất bại", "Thông báo");
+                MessageBox.Show("Đã tồn tại phiếu nhập");
             }
         }
 
-        // Hàm load dánh sách
+        //vwDS_CTPN
         public void load_DS_CTPN(string constr)
         {
             SqlConnection conn = new SqlConnection(constr);
@@ -204,14 +171,284 @@ namespace BTL_QuanLyBanSach2
             sqlDataAdapter.SelectCommand = new SqlCommand("SELECT * FROM vwDS_CTPN", conn);
             DataTable dataTable = new DataTable();
             sqlDataAdapter.Fill(dataTable);
-            dgvDS_CTPN.DataSource = dataTable;
+            dgvDS_PhieuNhap.DataSource = dataTable;
+            conn.Close();
         }
 
-        // Sự kiện load danh sách phiếu nhập
+        // Sự kiện Form Load danh sách phiếu nhập
         private void PhieuNhapSach_Load(object sender, EventArgs e)
         {
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             load_DS_CTPN(constr);
+
+            // ComboBox
+            HienDS_ComboBox_NXB();
+            HienDS_ComboBox_TG();
+            HienDS_ComboBox_TL();
+        }
+
+        // Sự kiện cập nhật Chi tiết phiếu nhập
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+            load_DS_CTPN(constr);
+
+            errorProvider1.SetError(txtSoPhieuNhap, "");
+
+            if (KiemTraDL() == false)
+            {
+                MessageBox.Show("Chưa đủ dữ liệu");
+            }
+            else
+            {
+                /*string soPN = dgvDS_PhieuNhap.CurrentRow.Cells["Số PN"].Value.ToString();
+                string maSach = dgvDS_PhieuNhap.CurrentRow.Cells["Mã sách"].Value.ToString();*/
+                LayThongTin();
+                SqlCommand cmd = new SqlCommand(constr, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "dbo.Proc_CapNhat_CTPN_Sach";
+                cmd.Parameters.AddWithValue("@SoPN", SoPN);
+                cmd.Parameters.AddWithValue("@MaSach", MaSach);
+                cmd.Parameters.AddWithValue("@SoLuongNhap", SoLuongNhap);
+                cmd.Parameters.AddWithValue("@GiaNhap", GiaNhap);
+                cmd.Parameters.AddWithValue("@TenSach", TenSach);
+                cmd.Parameters.AddWithValue("@MaTL", MaTL);
+                cmd.Parameters.AddWithValue("@MaNXB", MaNXB);
+                cmd.Parameters.AddWithValue("@MaTG", MaTG);
+
+                int testCmd = cmd.ExecuteNonQuery();
+                if (testCmd > 0)
+                {
+                    MessageBox.Show("Cập nhật thành công", "Thông báo");
+                    txtTongTien.Text = "";
+                    txtSoPhieuNhap.Enabled = true;
+                    txtMaSach.Enabled = true;
+                    load_DS_CTPN(constr);
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thất bại", "Thông báo");
+                }
+            }
+        }
+
+        // Sự kiện Xóa Chi tiết phiếu nhập
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+            load_DS_CTPN(constr);
+
+            if (txtSoPhieuNhap.Text == "" || txtMaSach.Text =="")
+            {
+                MessageBox.Show("Chưa đủ dữ liệu");
+            }
+            else
+            {
+                /*string soPN = dgvDS_PhieuNhap.CurrentRow.Cells["Số PN"].Value.ToString();
+                string maSach = dgvDS_PhieuNhap.CurrentRow.Cells["Mã sách"].Value.ToString();*/
+                LayThongTin();
+                DialogResult dialogResult;
+                dialogResult = MessageBox.Show("Bạn có muốn xóa dữ liệu không?", "", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    SqlCommand cmd = new SqlCommand(constr, conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "dbo.Proc_Xoa_CTPN_Sach_PhieuNhap";
+                    cmd.Parameters.AddWithValue("@SoPN", SoPN);
+                    cmd.Parameters.AddWithValue("@MaSach", MaSach);
+
+                    int testCmd = cmd.ExecuteNonQuery();
+                    if (testCmd > 0)
+                    {
+                        MessageBox.Show("Xóa thành công", "Thông báo");
+                        load_DS_CTPN(constr);
+                        LamSach();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa thất bại", "Thông báo");
+                    }
+                }                
+            }
+            conn.Close();
+        }
+
+        private void dgvDS_CTPN_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvDS_PhieuNhap.Rows.Count > 0)
+            {
+                txtSoPhieuNhap.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Số PN"].Value.ToString();
+                txtMaSach.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Mã sách"].Value.ToString();
+                txtTenSach.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên sách"].Value.ToString();
+                txtSoLuongNhap.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Số lượng"].Value.ToString();
+                txtGiaNhap.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Giá nhập"].Value.ToString();
+                //ComboBox: NXB, Thể loại, Tác giả 
+                cbMaNXB.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên NXB"].Value.ToString();
+                cbMaTL.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên thể loại"].Value.ToString();
+                cbMaTG.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên tác giả"].Value.ToString();
+            }
+        }
+
+        // Sự kiện Ghi phiếu nhập mới
+        private void btnGhiPhieu_Click(object sender, EventArgs e)
+        {
+            txtMaSach.Clear();
+            txtSoLuongNhap.Clear();
+            txtGiaNhap.Clear();
+            txtTenSach.Clear();
+            if (txtSoPhieuNhap.Text != "")
+            {
+                txtSoPhieuNhap.Enabled = false;
+                dateNgayNhap.Enabled = false;
+                txtMaSach.Focus();
+            }
+            else
+            {
+                txtSoPhieuNhap.Focus();
+            }
+            txtTongTien.Text = "";
+        }
+
+        // Hàm load dánh sách CTPN Lập phiếu
+        public void load_DS_CTPN_LapPhieu()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand(constr, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "dbo.Proc_DS_CTPN_NgayNhap";
+            cmd.Parameters.AddWithValue("@NgayNhap", dateNgayNhap.Text);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+            sqlDataAdapter.SelectCommand = cmd;
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            dgvDS_PhieuNhap.DataSource = dataTable;
+
+            conn.Close();
+        }
+
+        // Sự kiện Lập phiếu nhập mới
+        private void btnLapPhieuMoi_Click(object sender, EventArgs e)
+        {
+            LamSach();
+            txtSoPhieuNhap.Focus();
+            if (txtSoPhieuNhap.Text == "")
+            {
+                txtSoPhieuNhap.Enabled = true;
+                dateNgayNhap.Enabled = true;
+            }
+            load_DS_CTPN_LapPhieu();
+            txtTongTien.Text = "";
+        }
+
+        // Sự kiện tính Tổng tiền
+        private void button1_Click(object sender, EventArgs e)
+        {
+            double tongTien = 0;
+            for (int i = 0; i < dgvDS_PhieuNhap.Rows.Count; ++i)
+            {
+                tongTien += Convert.ToDouble(dgvDS_PhieuNhap.Rows[i].Cells[9].Value);
+            }
+            txtTongTien.Text = tongTien.ToString();
+        }
+
+        // Hàm hiển thị danh sách Phiếu nhập sách
+        private void btnPhieuNhapSach_Click(object sender, EventArgs e)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            load_DS_CTPN(constr);
+        }
+
+        // Hàm hiển thị danh sách CTPN
+        private void btnCTPN_Click(object sender, EventArgs e)
+        {
+            DS_CTPN dS_CTPN = new DS_CTPN();            
+            dS_CTPN.Show();
+        }
+
+        // Hàm hiện danh sách Mã NXB vào ComboBox
+        public void HienDS_ComboBox_NXB()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblNhaXuatBan", conn);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            cbMaNXB.DataSource = dataTable;
+            cbMaNXB.DisplayMember = "sTenNXB";
+            cbMaNXB.ValueMember = "sMaNXB";
+
+            conn.Close();
+        }
+
+        // Hàm hiện danh sách Mã Tác giả vào ComboBox
+        public void HienDS_ComboBox_TG()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblTacGia", conn);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            cbMaTG.DataSource = dataTable;
+            cbMaTG.DisplayMember = "sTenTG";
+            cbMaTG.ValueMember = "sMaTG";
+
+            conn.Close();
+        }
+
+        // Hàm hiện danh sách Mã Thể loại vào ComboBox
+        public void HienDS_ComboBox_TL()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblTheLoai", conn);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            cbMaTL.DataSource = dataTable;
+            cbMaTL.DisplayMember = "sTenTL";
+            cbMaTL.ValueMember = "sMaTL";
+
+            conn.Close();
+        }
+
+        // Sự kiện kiểm tra Số lượng nhập
+        private void txtSoLuongNhap_Validating(object sender, CancelEventArgs e)
+        {
+            if (txtSoLuongNhap.Text == "")
+            {
+                errorProvider1.SetError(txtSoLuongNhap, "Không được bỏ trống");
+            }
+            else
+            {
+                try
+                {
+                    if (float.Parse(txtSoLuongNhap.Text) <= 0)
+                    {
+                        MessageBox.Show("Số lượng nhập phải lớn hơn 0");
+                    }
+                    else
+                    {
+                        errorProvider1.SetError(txtSoLuongNhap, "");
+                    }
+                }
+                catch
+                {
+                    errorProvider1.SetError(txtSoLuongNhap, "Nhập sai định dạng");
+                }
+            }
         }
 
         // Kiểm tra khóa chính
@@ -246,8 +483,8 @@ namespace BTL_QuanLyBanSach2
             if (SoPN == "")
             {
                 errorProvider1.SetError(txtSoPhieuNhap, "Không được bỏ trống!");
-            } 
-            else if (KiemTraKhoaChinh(constr, conn, sql)) 
+            }
+            else if (KiemTraKhoaChinh(constr, conn, sql))
             {
                 errorProvider1.SetError(txtSoPhieuNhap, "Mã tồn tại");
                 txtSoPhieuNhap.Focus();
@@ -283,82 +520,13 @@ namespace BTL_QuanLyBanSach2
             conn.Close();
         }
 
-        // Sự kiện kiểm tra Mã nhà xuất bản
-        private void txtNhaXuatBan_Validating(object sender, CancelEventArgs e)
+        public void LamSach()
         {
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-            string MaNXB = txtNhaXuatBan.Text;
-            string sql = "SELECT * FROM tblNhaXuatBan WHERE sMaNXB = '" + MaNXB + "'";
-            if (MaNXB == "")
-            {
-                errorProvider1.SetError(txtNhaXuatBan, "Không được bỏ trống!");
-            }
-            else
-            {
-                errorProvider1.SetError(txtNhaXuatBan, "");
-            }
-            /*else if (KiemTraKhoaChinh(constr, conn, sql))
-            {
-                errorProvider1.SetError(txtNhaXuatBan, "Mã tồn tại");
-                txtNhaXuatBan.Focus();
-            }*/
-            conn.Close();
-        }
-
-        // Sự kiện kiểm tra Mã Thể loại
-        private void txtMaTL_Validating(object sender, CancelEventArgs e)
-        {
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-            string MaTL = txtMaTL.Text;
-            string sql = "SELECT * FROM tblTheLoai WHERE sMaTL = '" + MaTL + "'";
-            if (MaTL == "")
-            {
-                errorProvider1.SetError(txtMaTL, "Không được bỏ trống!");
-            }
-            else
-            {
-                errorProvider1.SetError(txtMaTL, "");
-            }
-            /*else if (KiemTraKhoaChinh(constr, conn, sql))
-            {
-                errorProvider1.SetError(txtMaTL, "Mã tồn tại");
-                txtMaTL.Focus();
-            }*/
-            conn.Close();
-        }
-
-        // Sự kiện kiểm tra Mã Tác giả
-        private void txtMaTG_Validating(object sender, CancelEventArgs e)
-        {
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-            string MaTG = txtMaTG.Text;
-            string sql = "SELECT * FROM tblTacGia WHERE sMaTG = '" + MaTG + "'";
-            if(MaTG == "")
-            {
-                errorProvider1.SetError(txtMaTG, "Không được bỏ trống!");
-            }
-            else
-            {
-                errorProvider1.SetError(txtMaTG, "");
-            }
-            /*else if (KiemTraKhoaChinh(constr, conn, sql))
-            {
-                errorProvider1.SetError(txtMaTG, "Mã tồn tại!");
-                txtMaTG.Focus();
-            }*/
-            conn.Close();
-        }
-
-        // Sự kiện cập nhật
-        private void dgvDS_CTPN_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            txtSoPhieuNhap.Clear();
+            txtMaSach.Clear();
+            txtSoLuongNhap.Clear();
+            txtGiaNhap.Clear();
+            txtTenSach.Clear();
         }
 
     }

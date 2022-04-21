@@ -37,5 +37,19 @@ namespace BTL_QuanLyBanSach2
             timKiem_NXB.MdiParent = this;
             timKiem_NXB.Show();
         }
+
+        private void tìmKiếmPhiếuNhậpSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimKiem_CTPN timKiem_CTPN = new TimKiem_CTPN();
+            timKiem_CTPN.MdiParent = this;
+            timKiem_CTPN.Show();
+        }
+
+        private void dSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Report ds = new Report();
+            ds.MdiParent = this;
+            ds.Show();
+        }
     }
 }

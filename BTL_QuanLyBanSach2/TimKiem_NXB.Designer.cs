@@ -72,9 +72,9 @@ namespace BTL_QuanLyBanSach2
             // btnTimKiem
             // 
             this.btnTimKiem.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(445, 95);
+            this.btnTimKiem.Location = new System.Drawing.Point(445, 91);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(75, 30);
+            this.btnTimKiem.Size = new System.Drawing.Size(75, 38);
             this.btnTimKiem.TabIndex = 3;
             this.btnTimKiem.Text = "Tìm";
             this.btnTimKiem.UseVisualStyleBackColor = true;

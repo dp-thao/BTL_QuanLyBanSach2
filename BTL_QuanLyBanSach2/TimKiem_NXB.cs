@@ -34,7 +34,6 @@ namespace BTL_QuanLyBanSach2
             cbSach_NXB.ValueMember = "sTenNXB";
 
             conn.Close();
-
         }
 
         // Sự kiện Form load
@@ -51,6 +50,7 @@ namespace BTL_QuanLyBanSach2
             conn.Open();
 
             string tenNXB = cbSach_NXB.SelectedValue.ToString();
+
             SqlCommand cmd = new SqlCommand(constr, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "dbo.Proc_TimKiem_Sach_sTenNXB";
@@ -74,6 +74,7 @@ namespace BTL_QuanLyBanSach2
             conn.Close();
         }
 
+        // Sự kiện tìm kiếm
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             load_DS_NXB();
