@@ -51,5 +51,12 @@ namespace BTL_QuanLyBanSach2
             ds.MdiParent = this;
             ds.Show();
         }
+
+        private void đổiMậtKhẩuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoiMatKhau dmk = new DoiMatKhau();
+            dmk.MdiParent = this;
+            dmk.Show();
+        }
     }
 }

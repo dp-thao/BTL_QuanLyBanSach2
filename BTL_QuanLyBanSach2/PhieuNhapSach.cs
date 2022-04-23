@@ -26,15 +26,22 @@ namespace BTL_QuanLyBanSach2
 
         public void LayThongTin()
         {
-            SoPN = txtSoPhieuNhap.Text;
-            NgayNhap = DateTime.Parse(dateNgayNhap.Text);
-            MaSach = txtMaSach.Text;
-            MaNXB = cbMaNXB.SelectedValue.ToString();
-            SoLuongNhap = float.Parse(txtSoLuongNhap.Text);
-            GiaNhap = float.Parse(txtGiaNhap.Text);
-            TenSach = txtTenSach.Text;
-            MaTG = cbMaTG.SelectedValue.ToString();
-            MaTL = cbMaTL.SelectedValue.ToString();
+            try
+            {
+                SoPN = txtSoPhieuNhap.Text;
+                NgayNhap = DateTime.Parse(dateNgayNhap.Text);
+                MaSach = txtMaSach.Text;
+                MaNXB = txtNXB.Text;
+                SoLuongNhap = float.Parse(txtSoLuongNhap.Text);
+                GiaNhap = float.Parse(txtGiaNhap.Text);
+                TenSach = cbTenSach.SelectedText.ToString();
+                MaTG = txtTacGia.Text;
+                MaTL = txtTheLoai.Text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -52,7 +59,7 @@ namespace BTL_QuanLyBanSach2
             else
             {
                 LayThongTin();
-                ThemSach(constr, conn);
+                ThemPhieuNhap(constr, conn);
             }
             conn.Close();
         }
@@ -61,7 +68,7 @@ namespace BTL_QuanLyBanSach2
         public bool KiemTraDL()
         {
             if (txtSoPhieuNhap.Text == "" || txtMaSach.Text == "" || txtSoLuongNhap.Text == ""
-                || txtGiaNhap.Text == "" || txtTenSach.Text == "")
+                || txtGiaNhap.Text == "")
             {
                 return false;
             }
@@ -71,39 +78,22 @@ namespace BTL_QuanLyBanSach2
             }
         }
 
-        // Thêm sách
-        public void ThemSach(string constr, SqlConnection conn)
-        {
-            string sql = "SELECT * FROM tblSach WHERE sMaSach = '" + txtMaSach.Text + "'";
-
-            if (!KiemTraKhoaChinh(constr, conn, sql))
-            {
-                SqlCommand cmd_Sach = new SqlCommand(constr, conn);
-                cmd_Sach.CommandType = CommandType.StoredProcedure;
-                cmd_Sach.CommandText = "dbo.Proc_ThemSach";
-                cmd_Sach.Parameters.AddWithValue("@MaSach", MaSach);
-                cmd_Sach.Parameters.AddWithValue("@TenSach", TenSach);
-                cmd_Sach.Parameters.AddWithValue("@MaTL", MaTL);
-                cmd_Sach.Parameters.AddWithValue("@MaNXB", MaNXB);
-                cmd_Sach.Parameters.AddWithValue("@MaTG", MaTG);
-                cmd_Sach.Parameters.AddWithValue("@SoLuongTon", SoLuongNhap);
-                int testCmd_Sach = cmd_Sach.ExecuteNonQuery();
-                if (testCmd_Sach > 0)
-                {
-                    ThemPhieuNhap(constr, conn);
-                    //MessageBox.Show("Thêm Sách thành công", "Thông báo");
-                }
-                else
-                {
-                    MessageBox.Show("Thêm Sách thất bại", "Thông báo");
-                }
-            }
-        }
-
         // Phiếu nhập
         public void ThemPhieuNhap(string constr, SqlConnection conn)
         {
             string sql = "SELECT * FROM tblPhieuNhap WHERE sSoPN = '" + txtSoPhieuNhap.Text + "'";
+                        
+            SqlCommand cmd = new SqlCommand(constr, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "dbo.Proc_NXB_sMaNXB";
+            cmd.Parameters.AddWithValue("@masach", cbTenSach.SelectedValue.ToString());
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+            while (sqlDataReader.Read() && sqlDataReader.HasRows)
+            {
+                int columnNumber = sqlDataReader.GetOrdinal("sMaNXB");
+                MaNXB = sqlDataReader.GetString(columnNumber);
+            }
+            sqlDataReader.Close();
 
             if (!KiemTraKhoaChinh(constr, conn, sql))
             {
@@ -113,11 +103,11 @@ namespace BTL_QuanLyBanSach2
                 cmd_PhieuNhap.Parameters.AddWithValue("@SoPN", SoPN);
                 cmd_PhieuNhap.Parameters.AddWithValue("@NgayNhap", NgayNhap);
                 cmd_PhieuNhap.Parameters.AddWithValue("@MaNXB", MaNXB);
+                cmd_PhieuNhap.Parameters.AddWithValue("@MaNV", session.MaNhanVien);
                 int testCmd_PhieuNhap = cmd_PhieuNhap.ExecuteNonQuery();
                 if (testCmd_PhieuNhap > 0)
                 {
                     ThemCTPN(constr, conn);
-                    //MessageBox.Show("Thêm Phiếu nhập thành công", "Thông báo");
                 }
                 else
                 {
@@ -180,11 +170,8 @@ namespace BTL_QuanLyBanSach2
         {
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             load_DS_CTPN(constr);
-
-            // ComboBox
-            HienDS_ComboBox_NXB();
-            HienDS_ComboBox_TG();
-            HienDS_ComboBox_TL();
+            HienDS_ComboBox_Sach();
+            txtTenNV.Text = session.TenNhanVien;
         }
 
         // Sự kiện cập nhật Chi tiết phiếu nhập
@@ -203,8 +190,6 @@ namespace BTL_QuanLyBanSach2
             }
             else
             {
-                /*string soPN = dgvDS_PhieuNhap.CurrentRow.Cells["Số PN"].Value.ToString();
-                string maSach = dgvDS_PhieuNhap.CurrentRow.Cells["Mã sách"].Value.ToString();*/
                 LayThongTin();
                 SqlCommand cmd = new SqlCommand(constr, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -213,10 +198,6 @@ namespace BTL_QuanLyBanSach2
                 cmd.Parameters.AddWithValue("@MaSach", MaSach);
                 cmd.Parameters.AddWithValue("@SoLuongNhap", SoLuongNhap);
                 cmd.Parameters.AddWithValue("@GiaNhap", GiaNhap);
-                cmd.Parameters.AddWithValue("@TenSach", TenSach);
-                cmd.Parameters.AddWithValue("@MaTL", MaTL);
-                cmd.Parameters.AddWithValue("@MaNXB", MaNXB);
-                cmd.Parameters.AddWithValue("@MaTG", MaTG);
 
                 int testCmd = cmd.ExecuteNonQuery();
                 if (testCmd > 0)
@@ -225,6 +206,7 @@ namespace BTL_QuanLyBanSach2
                     txtTongTien.Text = "";
                     txtSoPhieuNhap.Enabled = true;
                     txtMaSach.Enabled = true;
+                    HienDS_ComboBox_Sach();
                     load_DS_CTPN(constr);
                 }
                 else
@@ -232,6 +214,7 @@ namespace BTL_QuanLyBanSach2
                     MessageBox.Show("Cập nhật thất bại", "Thông báo");
                 }
             }
+            conn.Close();
         }
 
         // Sự kiện Xóa Chi tiết phiếu nhập
@@ -240,7 +223,6 @@ namespace BTL_QuanLyBanSach2
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             SqlConnection conn = new SqlConnection(constr);
             conn.Open();
-            load_DS_CTPN(constr);
 
             if (txtSoPhieuNhap.Text == "" || txtMaSach.Text =="")
             {
@@ -248,8 +230,6 @@ namespace BTL_QuanLyBanSach2
             }
             else
             {
-                /*string soPN = dgvDS_PhieuNhap.CurrentRow.Cells["Số PN"].Value.ToString();
-                string maSach = dgvDS_PhieuNhap.CurrentRow.Cells["Mã sách"].Value.ToString();*/
                 LayThongTin();
                 DialogResult dialogResult;
                 dialogResult = MessageBox.Show("Bạn có muốn xóa dữ liệu không?", "", MessageBoxButtons.YesNo);
@@ -265,6 +245,7 @@ namespace BTL_QuanLyBanSach2
                     if (testCmd > 0)
                     {
                         MessageBox.Show("Xóa thành công", "Thông báo");
+                        HienDS_ComboBox_Sach();
                         load_DS_CTPN(constr);
                         LamSach();
                     }
@@ -283,13 +264,12 @@ namespace BTL_QuanLyBanSach2
             {
                 txtSoPhieuNhap.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Số PN"].Value.ToString();
                 txtMaSach.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Mã sách"].Value.ToString();
-                txtTenSach.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên sách"].Value.ToString();
                 txtSoLuongNhap.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Số lượng"].Value.ToString();
                 txtGiaNhap.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Giá nhập"].Value.ToString();
-                //ComboBox: NXB, Thể loại, Tác giả 
-                cbMaNXB.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên NXB"].Value.ToString();
-                cbMaTL.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên thể loại"].Value.ToString();
-                cbMaTG.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên tác giả"].Value.ToString();
+                cbTenSach.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên sách"].Value.ToString();
+                txtNXB.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên NXB"].Value.ToString();
+                txtTheLoai.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên thể loại"].Value.ToString();
+                txtTacGia.Text = dgvDS_PhieuNhap.CurrentRow.Cells["Tên tác giả"].Value.ToString();
             }
         }
 
@@ -299,12 +279,11 @@ namespace BTL_QuanLyBanSach2
             txtMaSach.Clear();
             txtSoLuongNhap.Clear();
             txtGiaNhap.Clear();
-            txtTenSach.Clear();
             if (txtSoPhieuNhap.Text != "")
             {
                 txtSoPhieuNhap.Enabled = false;
                 dateNgayNhap.Enabled = false;
-                txtMaSach.Focus();
+                txtSoLuongNhap.Focus();
             }
             else
             {
@@ -354,7 +333,7 @@ namespace BTL_QuanLyBanSach2
             double tongTien = 0;
             for (int i = 0; i < dgvDS_PhieuNhap.Rows.Count; ++i)
             {
-                tongTien += Convert.ToDouble(dgvDS_PhieuNhap.Rows[i].Cells[9].Value);
+                tongTien += Convert.ToDouble(dgvDS_PhieuNhap.Rows[i].Cells[10].Value);
             }
             txtTongTien.Text = tongTien.ToString();
         }
@@ -373,54 +352,84 @@ namespace BTL_QuanLyBanSach2
             dS_CTPN.Show();
         }
 
-        // Hàm hiện danh sách Mã NXB vào ComboBox
-        public void HienDS_ComboBox_NXB()
+        // Hàm hiện danh sách Sách vào ComboBox
+        public void HienDS_ComboBox_Sach()
         {
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             SqlConnection conn = new SqlConnection(constr);
             conn.Open();
 
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblNhaXuatBan", conn);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblSach", conn);
             DataTable dataTable = new DataTable();
             sqlDataAdapter.Fill(dataTable);
-            cbMaNXB.DataSource = dataTable;
-            cbMaNXB.DisplayMember = "sTenNXB";
-            cbMaNXB.ValueMember = "sMaNXB";
+            cbTenSach.DisplayMember = "sTenSach";
+            cbTenSach.ValueMember = "sMaSach";
+            cbTenSach.DataSource = dataTable;
 
             conn.Close();
         }
 
-        // Hàm hiện danh sách Mã Tác giả vào ComboBox
-        public void HienDS_ComboBox_TG()
+        private void cbTenSach_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtMaSach.Text = cbTenSach.SelectedValue.ToString();
+            //DataTable tblSource = (DataTable)cbTenSach.DataSource;
+            //txtMaSach.Text = tblSource.Rows[cbTenSach.SelectedIndex]["sMaSach"].ToString();
+            txtTenNXB();
+            txtTenTG();
+            txtTenTL();
+        }
+
+        public void txtTenNXB()
         {
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             SqlConnection conn = new SqlConnection(constr);
             conn.Open();
-
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblTacGia", conn);
-            DataTable dataTable = new DataTable();
-            sqlDataAdapter.Fill(dataTable);
-            cbMaTG.DataSource = dataTable;
-            cbMaTG.DisplayMember = "sTenTG";
-            cbMaTG.ValueMember = "sMaTG";
-
+            SqlCommand cmd = new SqlCommand(constr, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "dbo.Proc_NXB";
+            cmd.Parameters.AddWithValue("@masach", cbTenSach.SelectedValue.ToString());
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+            while (sqlDataReader.Read() && sqlDataReader.HasRows)
+            {
+                int columnNumber = sqlDataReader.GetOrdinal("sTenNXB");
+                txtNXB.Text = sqlDataReader.GetString(columnNumber);
+            }
             conn.Close();
         }
 
-        // Hàm hiện danh sách Mã Thể loại vào ComboBox
-        public void HienDS_ComboBox_TL()
+        public void txtTenTG()
         {
             string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
             SqlConnection conn = new SqlConnection(constr);
             conn.Open();
+            SqlCommand cmd = new SqlCommand(constr, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "dbo.Proc_TacGia";
+            cmd.Parameters.AddWithValue("@masach", cbTenSach.SelectedValue.ToString());
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+            while (sqlDataReader.Read() && sqlDataReader.HasRows)
+            {
+                int columnNumber = sqlDataReader.GetOrdinal("sTenTG");
+                txtTacGia.Text = sqlDataReader.GetString(columnNumber);
+            }
+            conn.Close();
+        }
 
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblTheLoai", conn);
-            DataTable dataTable = new DataTable();
-            sqlDataAdapter.Fill(dataTable);
-            cbMaTL.DataSource = dataTable;
-            cbMaTL.DisplayMember = "sTenTL";
-            cbMaTL.ValueMember = "sMaTL";
-
+        public void txtTenTL()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(constr, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "dbo.Proc_TheLoai";
+            cmd.Parameters.AddWithValue("@masach", cbTenSach.SelectedValue.ToString());
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+            while (sqlDataReader.Read() && sqlDataReader.HasRows)
+            {
+                int columnNumber = sqlDataReader.GetOrdinal("sTenTL");
+                txtTheLoai.Text = sqlDataReader.GetString(columnNumber);
+            }
             conn.Close();
         }
 
@@ -496,37 +505,15 @@ namespace BTL_QuanLyBanSach2
             conn.Close();
         }
 
-        // Sự kiện kiểm tra Mã Sách
-        private void txtMaSach_Validating(object sender, CancelEventArgs e)
-        {
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-            string MaSach = txtMaSach.Text;
-            string sql = "SELECT * FROM tblSach WHERE sMaSach = '" + MaSach + "'";
-            if (MaSach == "")
-            {
-                errorProvider1.SetError(txtMaSach, "Không được bỏ trống!");
-            }
-            else if (KiemTraKhoaChinh(constr, conn, sql))
-            {
-                errorProvider1.SetError(txtMaSach, "Mã tồn tại");
-                txtMaSach.Focus();
-            }
-            else
-            {
-                errorProvider1.SetError(txtMaSach, "");
-            }
-            conn.Close();
-        }
-
         public void LamSach()
         {
             txtSoPhieuNhap.Clear();
             txtMaSach.Clear();
             txtSoLuongNhap.Clear();
             txtGiaNhap.Clear();
-            txtTenSach.Clear();
+            txtNXB.Clear();
+            txtTacGia.Clear();
+            txtTheLoai.Clear();
         }
 
     }
