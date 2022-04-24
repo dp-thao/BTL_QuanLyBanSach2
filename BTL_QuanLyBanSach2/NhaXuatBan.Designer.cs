@@ -31,13 +31,10 @@ namespace BTL_QuanLyBanSach2
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnLuuNXB = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvDS_NXB = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSuaNXB = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnXoaNXB = new System.Windows.Forms.Button();
             this.btnThemNXB = new System.Windows.Forms.Button();
             this.txtDienThoaiNXB = new System.Windows.Forms.TextBox();
@@ -49,7 +46,6 @@ namespace BTL_QuanLyBanSach2
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS_NXB)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -68,7 +64,6 @@ namespace BTL_QuanLyBanSach2
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.txtDienThoaiNXB);
@@ -81,33 +76,14 @@ namespace BTL_QuanLyBanSach2
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 74);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(781, 508);
+            this.groupBox1.Size = new System.Drawing.Size(781, 466);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.btnLuuNXB);
-            this.groupBox4.Location = new System.Drawing.Point(479, 158);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(246, 70);
-            this.groupBox4.TabIndex = 11;
-            this.groupBox4.TabStop = false;
-            // 
-            // btnLuuNXB
-            // 
-            this.btnLuuNXB.Location = new System.Drawing.Point(21, 20);
-            this.btnLuuNXB.Name = "btnLuuNXB";
-            this.btnLuuNXB.Size = new System.Drawing.Size(89, 39);
-            this.btnLuuNXB.TabIndex = 10;
-            this.btnLuuNXB.Text = "Lưu";
-            this.btnLuuNXB.UseVisualStyleBackColor = true;
-            this.btnLuuNXB.Click += new System.EventHandler(this.btnLuuNXB_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dgvDS_NXB);
-            this.groupBox3.Location = new System.Drawing.Point(45, 257);
+            this.groupBox3.Location = new System.Drawing.Point(45, 223);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(680, 223);
             this.groupBox3.TabIndex = 9;
@@ -128,7 +104,6 @@ namespace BTL_QuanLyBanSach2
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnSuaNXB);
-            this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.btnXoaNXB);
             this.groupBox2.Controls.Add(this.btnThemNXB);
             this.groupBox2.Location = new System.Drawing.Point(479, 29);
@@ -146,15 +121,6 @@ namespace BTL_QuanLyBanSach2
             this.btnSuaNXB.Text = "Sửa";
             this.btnSuaNXB.UseVisualStyleBackColor = true;
             this.btnSuaNXB.Click += new System.EventHandler(this.btnSuaNXB_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(136, 74);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(89, 38);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Thoát";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // btnXoaNXB
             // 
@@ -245,17 +211,17 @@ namespace BTL_QuanLyBanSach2
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(808, 619);
+            this.ClientSize = new System.Drawing.Size(806, 558);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NhaXuatBan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NhaXuatBan";
             this.Load += new System.EventHandler(this.NhaXuatBan_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS_NXB)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -272,7 +238,6 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.DataGridView dgvDS_NXB;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnSuaNXB;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnXoaNXB;
         private System.Windows.Forms.Button btnThemNXB;
         private System.Windows.Forms.TextBox txtDienThoaiNXB;
@@ -283,7 +248,5 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button btnLuuNXB;
     }
 }

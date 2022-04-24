@@ -31,20 +31,6 @@ namespace BTL_QuanLyBanSach2
             nhaXuatBan.Show();
         }
 
-        private void tìmSáchTheoNhàXuấtBảnToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TimKiem_NXB timKiem_NXB = new TimKiem_NXB();
-            timKiem_NXB.MdiParent = this;
-            timKiem_NXB.Show();
-        }
-
-        private void tìmKiếmPhiếuNhậpSáchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TimKiem_CTPN timKiem_CTPN = new TimKiem_CTPN();
-            timKiem_CTPN.MdiParent = this;
-            timKiem_CTPN.Show();
-        }
-
         private void dSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Report ds = new Report();
@@ -57,6 +43,34 @@ namespace BTL_QuanLyBanSach2
             DoiMatKhau dmk = new DoiMatKhau();
             dmk.MdiParent = this;
             dmk.Show();
+        }
+
+        private void nhậpThểLoạiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TheLoai tl = new TheLoai();
+            tl.MdiParent = this;
+            tl.Show();
+        }
+
+        private void nhậpTácGiảToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TacGia tg = new TacGia();
+            tg.MdiParent = this;
+            tg.Show();
+        }
+
+        private void tìmKiếmPhiếuNhậpSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimKiem_CTPN timKiem_CTPN = new TimKiem_CTPN();
+            timKiem_CTPN.MdiParent = this;
+            timKiem_CTPN.Show();
+        }
+
+        private void tìmKiếmSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimKiem_Sach timKiem_Sach = new TimKiem_Sach();
+            timKiem_Sach.MdiParent = this;
+            timKiem_Sach.Show();
         }
     }
 }

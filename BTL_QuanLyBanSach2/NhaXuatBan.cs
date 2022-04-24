@@ -28,49 +28,131 @@ namespace BTL_QuanLyBanSach2
             DiaChiNXB = txtDiaChiNXB.Text;
             DienThoai = txtDienThoaiNXB.Text;
         }
-
         private void btnThemNXB_Click(object sender, EventArgs e)
         {
-            txtMaNXB.Clear();
-            txtTenNXB.Clear();
-            txtDiaChiNXB.Clear();
-            txtDienThoaiNXB.Clear();
-            txtMaNXB.Focus();
-        }
-
-        private void btnLuuNXB_Click(object sender, EventArgs e)
-        {
-            LayThongTin();
-
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-
-            string sql = "SELECT * FROM tblNhaXuatBan WHERE sMaNXB = '" + txtMaNXB.Text + "'";
-            if (KiemTraKhoaChinh(constr, conn, sql))
+            try
             {
-                MessageBox.Show("Đã tồn tại nhà xuất bản", "Thông báo");
-            }
-            else
-            {
-                SqlCommand cmd_NXB = new SqlCommand(constr, conn);
-                cmd_NXB.CommandType = CommandType.StoredProcedure;
-                cmd_NXB.CommandText = "dbo.Proc_ThemNXB";
-                cmd_NXB.Parameters.AddWithValue("@MaNXB", MaNXB);
-                cmd_NXB.Parameters.AddWithValue("@TenNXB", TenNXB);
-                cmd_NXB.Parameters.AddWithValue("@DiaChiNXB", DiaChiNXB);
-                cmd_NXB.Parameters.AddWithValue("@DienThoai", DienThoai);
+                LayThongTin();
+                string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
 
-                int testCmd_NXB = cmd_NXB.ExecuteNonQuery();
-                if (testCmd_NXB > 0)
+                string sql = "SELECT * FROM tblNhaXuatBan WHERE sMaNXB = '" + txtMaNXB.Text + "'";
+                if (KiemTraKhoaChinh(constr, conn, sql))
                 {
-                    MessageBox.Show("Thêm thành công", "Thông báo");
-                    load_DS_NXB(constr);
+                    MessageBox.Show("Đã tồn tại nhà xuất bản", "Thông báo");
                 }
                 else
                 {
-                    MessageBox.Show("Thêm thất bại", "Thông báo");
+                    SqlCommand cmd_NXB = new SqlCommand(constr, conn);
+                    cmd_NXB.CommandType = CommandType.StoredProcedure;
+                    cmd_NXB.CommandText = "dbo.Proc_ThemNXB";
+                    cmd_NXB.Parameters.AddWithValue("@MaNXB", MaNXB);
+                    cmd_NXB.Parameters.AddWithValue("@TenNXB", TenNXB);
+                    cmd_NXB.Parameters.AddWithValue("@DiaChiNXB", DiaChiNXB);
+                    cmd_NXB.Parameters.AddWithValue("@DienThoai", DienThoai);
+
+                    int testCmd_NXB = cmd_NXB.ExecuteNonQuery();
+                    if (testCmd_NXB > 0)
+                    {
+                        MessageBox.Show("Thêm thành công", "Thông báo");
+                        load_DS_NXB(constr);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm thất bại", "Thông báo");
+                    }
                 }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // Sự kiện sửa Nhà xuất bản
+        private void btnSuaNXB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LayThongTin();
+                string maNXB = dgvDS_NXB.CurrentRow.Cells["Mã NXB"].Value.ToString();
+
+                string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+
+                if (txtMaNXB.Text == "")
+                {
+                    MessageBox.Show("Nhập thông tin cần sửa");
+                }
+                else
+                {
+                    SqlCommand cmd_NXB = new SqlCommand(constr, conn);
+                    cmd_NXB.CommandType = CommandType.StoredProcedure;
+                    cmd_NXB.CommandText = "dbo.Proc_CapNhatNXB";
+                    cmd_NXB.Parameters.AddWithValue("@MaNXB", maNXB);
+                    cmd_NXB.Parameters.AddWithValue("@TenNXB", TenNXB);
+                    cmd_NXB.Parameters.AddWithValue("@DiaChiNXB", DiaChiNXB);
+                    cmd_NXB.Parameters.AddWithValue("@DienThoai", DienThoai);
+
+                    int testCmd_NXB = cmd_NXB.ExecuteNonQuery();
+                    if (testCmd_NXB > 0)
+                    {
+                        MessageBox.Show("Cập nhật thành công", "Thông báo");
+                        load_DS_NXB(constr);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại", "Thông báo");
+                    }
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // Sự kiện Xóa nhà xuất bản
+        private void btnXoaNXB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string maNXB = dgvDS_NXB.CurrentRow.Cells["Mã NXB"].Value.ToString();
+                string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+
+                if (txtMaNXB.Text == "")
+                {
+                    MessageBox.Show("Nhập thông tin cần xóa");
+                }
+                else
+                {
+                    SqlCommand cmd_NXB = new SqlCommand(constr, conn);
+                    cmd_NXB.CommandType = CommandType.StoredProcedure;
+                    cmd_NXB.CommandText = "dbo.Proc_XoaNXB";
+                    cmd_NXB.Parameters.AddWithValue("@MaNXB", maNXB);
+
+                    int testCmd_NXB = cmd_NXB.ExecuteNonQuery();
+                    if (testCmd_NXB > 0)
+                    {
+                        MessageBox.Show("Xóa thành công", "Thông báo");
+                        load_DS_NXB(constr);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa thất bại", "Thông báo");
+                    }
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -119,75 +201,6 @@ namespace BTL_QuanLyBanSach2
             txtTenNXB.Text = dgvDS_NXB.CurrentRow.Cells["Tên NXB"].Value.ToString();
             txtDiaChiNXB.Text = dgvDS_NXB.CurrentRow.Cells["Địa chỉ NXB"].Value.ToString();
             txtDienThoaiNXB.Text = dgvDS_NXB.CurrentRow.Cells["Điện thoại"].Value.ToString();
-        }
-
-        // Sự kiện sửa Nhà xuất bản
-        private void btnSuaNXB_Click(object sender, EventArgs e)
-        {
-            LayThongTin();
-            string maNXB = dgvDS_NXB.CurrentRow.Cells["Mã NXB"].Value.ToString();
-
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-
-            if (txtMaNXB.Text == "")
-            {
-                MessageBox.Show("Nhập thông tin cần sửa");
-            }
-            else
-            {
-                SqlCommand cmd_NXB = new SqlCommand(constr, conn);
-                cmd_NXB.CommandType = CommandType.StoredProcedure;
-                cmd_NXB.CommandText = "dbo.Proc_CapNhatNXB";
-                cmd_NXB.Parameters.AddWithValue("@MaNXB", maNXB);
-                cmd_NXB.Parameters.AddWithValue("@TenNXB", TenNXB);
-                cmd_NXB.Parameters.AddWithValue("@DiaChiNXB", DiaChiNXB);
-                cmd_NXB.Parameters.AddWithValue("@DienThoai", DienThoai);
-
-                int testCmd_NXB = cmd_NXB.ExecuteNonQuery();
-                if (testCmd_NXB > 0)
-                {
-                    MessageBox.Show("Cập nhật thành công", "Thông báo");
-                    load_DS_NXB(constr);
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật thất bại", "Thông báo");
-                }
-            }            
-        }
-
-        // Sự kiện Xóa nhà xuất bản
-        private void btnXoaNXB_Click(object sender, EventArgs e)
-        {
-            string maNXB = dgvDS_NXB.CurrentRow.Cells["Mã NXB"].Value.ToString();
-            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
-            SqlConnection conn = new SqlConnection(constr);
-            conn.Open();
-
-            if (txtMaNXB.Text == "")
-            {
-                MessageBox.Show("Nhập thông tin cần xóa");
-            }
-            else
-            {
-                SqlCommand cmd_NXB = new SqlCommand(constr, conn);
-                cmd_NXB.CommandType = CommandType.StoredProcedure;
-                cmd_NXB.CommandText = "dbo.Proc_XoaNXB";
-                cmd_NXB.Parameters.AddWithValue("@MaNXB", maNXB);
-
-                int testCmd_NXB = cmd_NXB.ExecuteNonQuery();
-                if (testCmd_NXB > 0)
-                {
-                    MessageBox.Show("Xóa thành công", "Thông báo");
-                    load_DS_NXB(constr);
-                }
-                else
-                {
-                    MessageBox.Show("Xóa thất bại", "Thông báo");
-                }
-            }
         }
     }
 }
