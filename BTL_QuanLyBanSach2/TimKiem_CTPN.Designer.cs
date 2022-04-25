@@ -41,7 +41,7 @@ namespace BTL_QuanLyBanSach2
             this.txtThang = new System.Windows.Forms.TextBox();
             this.btnTim = new System.Windows.Forms.Button();
             this.txtTenNV = new System.Windows.Forms.TextBox();
-            this.txtMaSach = new System.Windows.Forms.TextBox();
+            this.txtTenSach = new System.Windows.Forms.TextBox();
             this.txtSoPN = new System.Windows.Forms.TextBox();
             this.txtNam = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -99,15 +99,15 @@ namespace BTL_QuanLyBanSach2
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(36, 73);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 20);
+            this.label4.Size = new System.Drawing.Size(78, 20);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Mã sách\r\n";
+            this.label4.Text = "Tên sách\r\n";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(291, 32);
+            this.label5.Location = new System.Drawing.Point(456, 32);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 20);
             this.label5.TabIndex = 9;
@@ -117,7 +117,7 @@ namespace BTL_QuanLyBanSach2
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(478, 32);
+            this.label6.Location = new System.Drawing.Point(643, 32);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 20);
             this.label6.TabIndex = 10;
@@ -127,7 +127,7 @@ namespace BTL_QuanLyBanSach2
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(291, 73);
+            this.label7.Location = new System.Drawing.Point(456, 73);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(169, 20);
             this.label7.TabIndex = 15;
@@ -138,7 +138,7 @@ namespace BTL_QuanLyBanSach2
             this.groupBox2.Controls.Add(this.txtThang);
             this.groupBox2.Controls.Add(this.btnTim);
             this.groupBox2.Controls.Add(this.txtTenNV);
-            this.groupBox2.Controls.Add(this.txtMaSach);
+            this.groupBox2.Controls.Add(this.txtTenSach);
             this.groupBox2.Controls.Add(this.txtSoPN);
             this.groupBox2.Controls.Add(this.txtNam);
             this.groupBox2.Controls.Add(this.label3);
@@ -148,14 +148,14 @@ namespace BTL_QuanLyBanSach2
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(62, 95);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(905, 114);
+            this.groupBox2.Size = new System.Drawing.Size(1072, 114);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             // 
             // txtThang
             // 
             this.txtThang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtThang.Location = new System.Drawing.Point(358, 22);
+            this.txtThang.Location = new System.Drawing.Point(523, 22);
             this.txtThang.Name = "txtThang";
             this.txtThang.Size = new System.Drawing.Size(100, 27);
             this.txtThang.TabIndex = 21;
@@ -163,7 +163,7 @@ namespace BTL_QuanLyBanSach2
             // btnTim
             // 
             this.btnTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTim.Location = new System.Drawing.Point(759, 54);
+            this.btnTim.Location = new System.Drawing.Point(924, 54);
             this.btnTim.Name = "btnTim";
             this.btnTim.Size = new System.Drawing.Size(98, 39);
             this.btnTim.TabIndex = 18;
@@ -174,18 +174,18 @@ namespace BTL_QuanLyBanSach2
             // txtTenNV
             // 
             this.txtTenNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenNV.Location = new System.Drawing.Point(485, 66);
+            this.txtTenNV.Location = new System.Drawing.Point(650, 66);
             this.txtTenNV.Name = "txtTenNV";
             this.txtTenNV.Size = new System.Drawing.Size(220, 27);
             this.txtTenNV.TabIndex = 20;
             // 
-            // txtMaSach
+            // txtTenSach
             // 
-            this.txtMaSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaSach.Location = new System.Drawing.Point(129, 66);
-            this.txtMaSach.Name = "txtMaSach";
-            this.txtMaSach.Size = new System.Drawing.Size(100, 27);
-            this.txtMaSach.TabIndex = 19;
+            this.txtTenSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenSach.Location = new System.Drawing.Point(129, 66);
+            this.txtTenSach.Name = "txtTenSach";
+            this.txtTenSach.Size = new System.Drawing.Size(265, 27);
+            this.txtTenSach.TabIndex = 19;
             // 
             // txtSoPN
             // 
@@ -198,7 +198,7 @@ namespace BTL_QuanLyBanSach2
             // txtNam
             // 
             this.txtNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNam.Location = new System.Drawing.Point(541, 25);
+            this.txtNam.Location = new System.Drawing.Point(706, 25);
             this.txtNam.Name = "txtNam";
             this.txtNam.Size = new System.Drawing.Size(100, 27);
             this.txtNam.TabIndex = 17;
@@ -236,7 +236,7 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtTenNV;
-        private System.Windows.Forms.TextBox txtMaSach;
+        private System.Windows.Forms.TextBox txtTenSach;
         private System.Windows.Forms.TextBox txtSoPN;
         private System.Windows.Forms.TextBox txtNam;
         private System.Windows.Forms.Button btnTim;

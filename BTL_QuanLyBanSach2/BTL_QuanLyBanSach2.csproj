@@ -67,6 +67,12 @@
     <Compile Include="DoiMatKhau.Designer.cs">
       <DependentUpon>DoiMatKhau.cs</DependentUpon>
     </Compile>
+    <Compile Include="HoaDonBan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HoaDonBan.Designer.cs">
+      <DependentUpon>HoaDonBan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Report.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,17 +124,17 @@
     <Compile Include="TheLoai.Designer.cs">
       <DependentUpon>TheLoai.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimKiem_CTHD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimKiem_CTHD.Designer.cs">
+      <DependentUpon>TimKiem_CTHD.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimKiem_CTPN.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TimKiem_CTPN.Designer.cs">
       <DependentUpon>TimKiem_CTPN.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimKiem_LoaiSach.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TimKiem_LoaiSach.Designer.cs">
-      <DependentUpon>TimKiem_LoaiSach.cs</DependentUpon>
     </Compile>
     <Compile Include="TimKiem_Sach.cs">
       <SubType>Form</SubType>
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DoiMatKhau.resx">
       <DependentUpon>DoiMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HoaDonBan.resx">
+      <DependentUpon>HoaDonBan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
@@ -176,11 +185,11 @@
     <EmbeddedResource Include="TheLoai.resx">
       <DependentUpon>TheLoai.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TimKiem_CTHD.resx">
+      <DependentUpon>TimKiem_CTHD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TimKiem_CTPN.resx">
       <DependentUpon>TimKiem_CTPN.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimKiem_LoaiSach.resx">
-      <DependentUpon>TimKiem_LoaiSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimKiem_Sach.resx">
       <DependentUpon>TimKiem_Sach.cs</DependentUpon>

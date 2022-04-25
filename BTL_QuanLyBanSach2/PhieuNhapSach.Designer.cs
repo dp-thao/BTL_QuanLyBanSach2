@@ -156,8 +156,6 @@ namespace BTL_QuanLyBanSach2
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.btnSua);
             this.groupBox4.Controls.Add(this.btnXoa);
             this.groupBox4.Controls.Add(this.btnThem);
@@ -474,8 +472,6 @@ namespace BTL_QuanLyBanSach2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(1152, 721);
             this.Controls.Add(this.txtTenNV);
@@ -530,15 +526,9 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.Button btnLapPhieuMoi;
         private System.Windows.Forms.Button btnGhiPhieu;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtMaSach;
-        private System.Windows.Forms.TextBox txtGiaNhap;
-        private System.Windows.Forms.TextBox txtSoLuongNhap;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtSoPhieuNhap;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -552,5 +542,11 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.TextBox txtNXB;
         private System.Windows.Forms.TextBox txtTenNV;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtMaSach;
+        private System.Windows.Forms.TextBox txtGiaNhap;
+        private System.Windows.Forms.TextBox txtSoLuongNhap;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }

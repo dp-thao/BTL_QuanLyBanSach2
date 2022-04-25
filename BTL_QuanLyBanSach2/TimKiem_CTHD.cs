@@ -12,9 +12,9 @@ using System.Configuration;
 
 namespace BTL_QuanLyBanSach2
 {
-    public partial class TimKiem_CTPN : Form
+    public partial class TimKiem_CTHD : Form
     {
-        public TimKiem_CTPN()
+        public TimKiem_CTHD()
         {
             InitializeComponent();
         }
@@ -23,16 +23,16 @@ namespace BTL_QuanLyBanSach2
         {
             try
             {
-                if ((txtSoPN.Text == "") && (txtTenSach.Text == "") && (txtNam.Text == "") && (txtTenNV.Text == "") && (txtThang.Text == ""))
+                if ((txtSoHD.Text == "") && (txtTenSach.Text == "") && (txtNam.Text == "") && (txtTenNV.Text == "") && (txtThang.Text == ""))
                 {
                     MessageBox.Show("Hãy nhập một điều kiện tìm kiếm!!!", "Yêu cầu ...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 string sql =
-                   "SELECT ROW_NUMBER() OVER (ORDER BY tblChiTietPhieuNhap.sSoPN) AS [STT], sTenSach AS [Tên sách], sTenTL AS[Tên thể loại], sTenTG AS[Tên tác giả], sTenNXB AS[Tên NXB], sTenNV AS[Tên NV], dNgayNhap AS[Ngày nhập], fSoLuongNhap AS[Số lượng nhập], fGiaNhap AS[Giá nhập], (fSoLuongNhap * fGiaNhap) AS[Thành tiền] FROM dbo.tblChiTietPhieuNhap JOIN dbo.tblSach ON dbo.tblChiTietPhieuNhap.sMaSach = dbo.tblSach.sMaSach JOIN dbo.tblPhieuNhap ON dbo.tblPhieuNhap.sSoPN = dbo.tblChiTietPhieuNhap.sSoPN JOIN tblTheLoai ON tblTheLoai.sMaTL = tblSach.sMaTL JOIN tblTacGia ON tblTacGia.sMaTG = tblSach.sMaTG JOIN tblNhaXuatBan ON tblNhaXuatBan.sMaNXB = tblSach.sMaNXB JOIN tblNhanVien ON tblNhanVien.sMaNV = tblPhieuNhap.sMaNV WHERE 1=1";
-                if (txtSoPN.Text != "")
+                   "SELECT ROW_NUMBER() OVER (ORDER BY tblChiTietHoaDon.sSoHD) AS [STT], sTenSach AS [Tên sách], dNgayBan AS[Ngày bán], sTenNV AS[Tên NV], fSoLuongBan AS[Số lượng bán], fGiaBan AS[Giá bán], (fSoLuongBan * fGiaBan) AS[Thành tiền] FROM dbo.tblChiTietHoaDon JOIN dbo.tblSach ON dbo.tblChiTietHoaDon.sMaSach = dbo.tblSach.sMaSach JOIN dbo.tblHoaDon ON dbo.tblHoaDon.sSoHD = dbo.tblChiTietHoaDon.sSoHD JOIN tblNhanVien ON tblNhanVien.sMaNV = tblHoaDon.sMaNV WHERE 1=1";
+                if (txtSoHD.Text != "")
                 {
-                    sql = sql + " AND tblChiTietPhieuNhap.sSoPN Like N'%" + txtSoPN.Text + "%'";
+                    sql = sql + " AND tblChiTietHoaDon.sSoHD Like N'%" + txtSoHD.Text + "%'";
                 }
                 if (txtTenSach.Text != "")
                 {
@@ -40,11 +40,11 @@ namespace BTL_QuanLyBanSach2
                 }
                 if (txtThang.Text != "")
                 {
-                    sql = sql + " AND MONTH(tblPhieuNhap.dNgayNhap) =" + txtThang.Text;
+                    sql = sql + " AND MONTH(tblHoaDon.dNgayBan) =" + txtThang.Text;
                 }
                 if (txtNam.Text != "")
                 {
-                    sql = sql + " AND YEAR(tblPhieuNhap.dNgayNhap) =" + txtNam.Text;
+                    sql = sql + " AND YEAR(tblHoaDon.dNgayBan) =" + txtNam.Text;
                 }
                 if (txtTenNV.Text != "")
                 {
@@ -69,7 +69,7 @@ namespace BTL_QuanLyBanSach2
                 }
                 else
                 {
-                    dgvDS_PhieuNhapSach.DataSource = dataTable;
+                    dgvDS_HoaDonBan.DataSource = dataTable;
                 }
 
                 conn.Close();

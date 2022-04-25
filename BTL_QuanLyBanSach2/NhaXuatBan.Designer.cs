@@ -54,12 +54,13 @@ namespace BTL_QuanLyBanSach2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(293, 31);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(298, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(199, 22);
+            this.label1.Size = new System.Drawing.Size(229, 39);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Cập Nhật Nhà Xuất Bản";
+            this.label1.Text = "Nhà Xuất Bản";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // groupBox1
@@ -74,6 +75,7 @@ namespace BTL_QuanLyBanSach2
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 74);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(781, 466);
@@ -92,6 +94,8 @@ namespace BTL_QuanLyBanSach2
             // 
             // dgvDS_NXB
             // 
+            this.dgvDS_NXB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvDS_NXB.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvDS_NXB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDS_NXB.Location = new System.Drawing.Point(6, 29);
             this.dgvDS_NXB.Name = "dgvDS_NXB";
@@ -106,15 +110,15 @@ namespace BTL_QuanLyBanSach2
             this.groupBox2.Controls.Add(this.btnSuaNXB);
             this.groupBox2.Controls.Add(this.btnXoaNXB);
             this.groupBox2.Controls.Add(this.btnThemNXB);
-            this.groupBox2.Location = new System.Drawing.Point(479, 29);
+            this.groupBox2.Location = new System.Drawing.Point(536, 29);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(246, 126);
+            this.groupBox2.Size = new System.Drawing.Size(136, 188);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
             // btnSuaNXB
             // 
-            this.btnSuaNXB.Location = new System.Drawing.Point(21, 74);
+            this.btnSuaNXB.Location = new System.Drawing.Point(21, 80);
             this.btnSuaNXB.Name = "btnSuaNXB";
             this.btnSuaNXB.Size = new System.Drawing.Size(89, 38);
             this.btnSuaNXB.TabIndex = 3;
@@ -124,7 +128,7 @@ namespace BTL_QuanLyBanSach2
             // 
             // btnXoaNXB
             // 
-            this.btnXoaNXB.Location = new System.Drawing.Point(136, 29);
+            this.btnXoaNXB.Location = new System.Drawing.Point(21, 131);
             this.btnXoaNXB.Name = "btnXoaNXB";
             this.btnXoaNXB.Size = new System.Drawing.Size(89, 38);
             this.btnXoaNXB.TabIndex = 1;
@@ -144,65 +148,65 @@ namespace BTL_QuanLyBanSach2
             // 
             // txtDienThoaiNXB
             // 
-            this.txtDienThoaiNXB.Location = new System.Drawing.Point(169, 161);
+            this.txtDienThoaiNXB.Location = new System.Drawing.Point(226, 161);
             this.txtDienThoaiNXB.Name = "txtDienThoaiNXB";
-            this.txtDienThoaiNXB.Size = new System.Drawing.Size(249, 30);
+            this.txtDienThoaiNXB.Size = new System.Drawing.Size(249, 27);
             this.txtDienThoaiNXB.TabIndex = 7;
             // 
             // txtDiaChiNXB
             // 
-            this.txtDiaChiNXB.Location = new System.Drawing.Point(169, 122);
+            this.txtDiaChiNXB.Location = new System.Drawing.Point(226, 122);
             this.txtDiaChiNXB.Name = "txtDiaChiNXB";
-            this.txtDiaChiNXB.Size = new System.Drawing.Size(249, 30);
+            this.txtDiaChiNXB.Size = new System.Drawing.Size(249, 27);
             this.txtDiaChiNXB.TabIndex = 6;
             // 
             // txtTenNXB
             // 
-            this.txtTenNXB.Location = new System.Drawing.Point(169, 84);
+            this.txtTenNXB.Location = new System.Drawing.Point(226, 84);
             this.txtTenNXB.Name = "txtTenNXB";
-            this.txtTenNXB.Size = new System.Drawing.Size(249, 30);
+            this.txtTenNXB.Size = new System.Drawing.Size(249, 27);
             this.txtTenNXB.TabIndex = 5;
             // 
             // txtMaNXB
             // 
-            this.txtMaNXB.Location = new System.Drawing.Point(169, 43);
+            this.txtMaNXB.Location = new System.Drawing.Point(226, 43);
             this.txtMaNXB.Name = "txtMaNXB";
-            this.txtMaNXB.Size = new System.Drawing.Size(249, 30);
+            this.txtMaNXB.Size = new System.Drawing.Size(249, 27);
             this.txtMaNXB.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 169);
+            this.label5.Location = new System.Drawing.Point(98, 169);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(92, 22);
+            this.label5.Size = new System.Drawing.Size(84, 20);
             this.label5.TabIndex = 3;
             this.label5.Text = "Điện thoại";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(41, 130);
+            this.label4.Location = new System.Drawing.Point(98, 130);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(114, 22);
+            this.label4.Size = new System.Drawing.Size(101, 20);
             this.label4.TabIndex = 2;
             this.label4.Text = "Địa chỉ NXB";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(41, 92);
+            this.label3.Location = new System.Drawing.Point(98, 92);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 22);
+            this.label3.Size = new System.Drawing.Size(77, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "Tên NXB";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 51);
+            this.label2.Location = new System.Drawing.Point(98, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 22);
+            this.label2.Size = new System.Drawing.Size(72, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Mã NXB";
             // 

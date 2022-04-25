@@ -33,9 +33,7 @@ namespace BTL_QuanLyBanSach2
 
         private void dSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Report ds = new Report();
-            ds.MdiParent = this;
-            ds.Show();
+            
         }
 
         private void đổiMậtKhẩuToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,6 +69,27 @@ namespace BTL_QuanLyBanSach2
             TimKiem_Sach timKiem_Sach = new TimKiem_Sach();
             timKiem_Sach.MdiParent = this;
             timKiem_Sach.Show();
+        }
+
+        private void hóaĐơnBánSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HoaDonBan hdb = new HoaDonBan();
+            hdb.MdiParent = this;
+            hdb.Show();
+        }
+
+        private void tìmKiếmHóaĐơnBánToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimKiem_CTHD timKiem_CTHD = new TimKiem_CTHD();
+            timKiem_CTHD.MdiParent = this;
+            timKiem_CTHD.Show();
+        }
+
+        private void phiếuNhậpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Report ds = new Report();
+            ds.MdiParent = this;
+            ds.Show();
         }
     }
 }
