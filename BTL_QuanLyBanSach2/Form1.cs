@@ -87,9 +87,16 @@ namespace BTL_QuanLyBanSach2
 
         private void phiếuNhậpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Report ds = new Report();
-            ds.MdiParent = this;
-            ds.Show();
+            BaoCao_PhieuNhap bcPhieuNhap = new BaoCao_PhieuNhap();
+            bcPhieuNhap.MdiParent = this;
+            bcPhieuNhap.Show();
+        }
+
+        private void nhậpSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Sach sach = new Sach();
+            sach.MdiParent = this;
+            sach.Show();
         }
     }
 }

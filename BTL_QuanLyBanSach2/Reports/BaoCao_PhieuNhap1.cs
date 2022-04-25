@@ -16,14 +16,14 @@ namespace BTL_QuanLyBanSach2.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class HoaDonNhapSach : ReportClass {
+    public class BaoCao_PhieuNhap : ReportClass {
         
-        public HoaDonNhapSach() {
+        public BaoCao_PhieuNhap() {
         }
         
         public override string ResourceName {
             get {
-                return "HoaDonNhapSach.rpt";
+                return "BaoCao_PhieuNhap.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace BTL_QuanLyBanSach2.Reports {
         
         public override string FullResourceName {
             get {
-                return "BTL_QuanLyBanSach2.Reports.HoaDonNhapSach.rpt";
+                return "BTL_QuanLyBanSach2.Reports.BaoCao_PhieuNhap.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,20 @@ namespace BTL_QuanLyBanSach2.Reports {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_soPN {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedHoaDonNhapSach : Component, ICachedReport {
+    public class CachedBaoCao_PhieuNhap : Component, ICachedReport {
         
-        public CachedHoaDonNhapSach() {
+        public CachedBaoCao_PhieuNhap() {
         }
         
         [Browsable(false)]
@@ -129,7 +137,7 @@ namespace BTL_QuanLyBanSach2.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            HoaDonNhapSach rpt = new HoaDonNhapSach();
+            BaoCao_PhieuNhap rpt = new BaoCao_PhieuNhap();
             rpt.Site = this.Site;
             return rpt;
         }
