@@ -17,7 +17,7 @@ namespace BTL_QuanLyBanSach2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DangNhap());
-            //Application.Run(new Form1());
+            //Application.Run(new ComboBox_List());
 
         }
     }

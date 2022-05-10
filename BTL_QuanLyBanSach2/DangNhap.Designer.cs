@@ -29,6 +29,7 @@ namespace BTL_QuanLyBanSach2
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTaiKhoan = new System.Windows.Forms.TextBox();
@@ -37,6 +38,8 @@ namespace BTL_QuanLyBanSach2
             this.btnThoat = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.chkHienThi = new System.Windows.Forms.RadioButton();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -67,6 +70,7 @@ namespace BTL_QuanLyBanSach2
             this.txtTaiKhoan.Size = new System.Drawing.Size(242, 27);
             this.txtTaiKhoan.TabIndex = 2;
             this.txtTaiKhoan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtTaiKhoan_MouseClick);
+            this.txtTaiKhoan.Validating += new System.ComponentModel.CancelEventHandler(this.txtTaiKhoan_Validating);
             // 
             // txtMatKhau
             // 
@@ -77,6 +81,7 @@ namespace BTL_QuanLyBanSach2
             this.txtMatKhau.Size = new System.Drawing.Size(242, 27);
             this.txtMatKhau.TabIndex = 3;
             this.txtMatKhau.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtMatKhau_MouseClick);
+            this.txtMatKhau.Validating += new System.ComponentModel.CancelEventHandler(this.txtMatKhau_Validating);
             // 
             // btnDangNhap
             // 
@@ -124,6 +129,10 @@ namespace BTL_QuanLyBanSach2
             this.chkHienThi.UseVisualStyleBackColor = true;
             this.chkHienThi.CheckedChanged += new System.EventHandler(this.chkHienThi_CheckedChanged);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // DangNhap
             // 
             this.AcceptButton = this.btnDangNhap;
@@ -142,6 +151,7 @@ namespace BTL_QuanLyBanSach2
             this.Name = "DangNhap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DangNhap";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,5 +167,6 @@ namespace BTL_QuanLyBanSach2
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton chkHienThi;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

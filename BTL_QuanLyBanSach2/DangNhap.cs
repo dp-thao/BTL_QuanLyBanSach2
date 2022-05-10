@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace BTL_QuanLyBanSach2
 {
@@ -33,6 +34,7 @@ namespace BTL_QuanLyBanSach2
             }
         }
 
+        int dem = 0;
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             int DNThanhCong = 0;
@@ -41,7 +43,6 @@ namespace BTL_QuanLyBanSach2
                 string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
                 SqlConnection conn = new SqlConnection(constr);
                 conn.Open();
-
                 SqlCommand cmd = new SqlCommand(constr, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "dbo.Proc_DangNhap";
@@ -92,7 +93,7 @@ namespace BTL_QuanLyBanSach2
                     sqlDataAdapter.SelectCommand = cmd2;
                     DataTable dataTable = new DataTable();
                     sqlDataAdapter.Fill(dataTable);
-                    if (dataTable.Rows.Count > 0) 
+                    if (dataTable.Rows.Count > 0)
                     {
                         session.TenNhanVien = dataTable.Rows[0]["sTenNV"].ToString();
                         session.MaNhanVien = dataTable.Rows[0]["sMaNV"].ToString();
@@ -101,7 +102,6 @@ namespace BTL_QuanLyBanSach2
                     f1.Show();
                     this.Hide();
                 }
-
                 conn.Close();
             }
             catch (Exception ex)
@@ -128,5 +128,49 @@ namespace BTL_QuanLyBanSach2
                 this.Close();
             }
         }
+
+        private static bool CheckPass(string password)
+        {
+            bool Kitu_dacbiet = false;
+            for (int i = 0; i < password.Length; i++)
+            {
+                if ((password[i] >= 32 && password[i] <= 47)
+                   || (password[i] >= 58 && password[i] <= 64)
+                   || (password[i] >= 91 && password[i] <= 96)
+                   || (password[i] >= 123 && password[i] <= 126))
+                {
+                    Kitu_dacbiet = true;
+                }
+            }
+            return Regex.IsMatch(password, @"[A-Z]")
+                   && Regex.IsMatch(password, @"[0-9]")
+                   && Kitu_dacbiet
+                   && password.Length > 6;
+        }
+
+        private void txtMatKhau_Validating(object sender, CancelEventArgs e)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+            SqlConnection conn = new SqlConnection(constr);
+            conn.Open();
+            string matkhau = txtMatKhau.Text;
+            if (!CheckPass(matkhau))
+            {
+                errorProvider1.SetError(txtMatKhau, "Mật khẩu phải 6 kí tự, có chữ số, chữ hoa");
+            }
+            else
+            {
+                errorProvider1.SetError(txtMatKhau, "");
+            }
+            conn.Close();
+        }
+
+        private void txtTaiKhoan_Validating(object sender, CancelEventArgs e)
+        {
+            errorProvider1.SetError(txtMatKhau, "");
+        }
+
+        //Tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt:
+        //"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
     }
 }

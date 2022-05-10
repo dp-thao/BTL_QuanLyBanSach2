@@ -59,7 +59,7 @@ namespace BTL_QuanLyBanSach2
 
         private void tìmKiếmPhiếuNhậpSáchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TimKiem_CTPN timKiem_CTPN = new TimKiem_CTPN();
+            timkiem_ctpn_2 timKiem_CTPN = new timkiem_ctpn_2();
             timKiem_CTPN.MdiParent = this;
             timKiem_CTPN.Show();
         }

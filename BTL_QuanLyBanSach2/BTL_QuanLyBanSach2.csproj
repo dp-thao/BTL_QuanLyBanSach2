@@ -61,6 +61,24 @@
     <Compile Include="BaoCao_PhieuNhap.Designer.cs">
       <DependentUpon>BaoCao_PhieuNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComboBox_List.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComboBox_List.Designer.cs">
+      <DependentUpon>ComboBox_List.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormThatBai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormThatBai.Designer.cs">
+      <DependentUpon>FormThatBai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\BaoCao_TheoThang.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaoCao_TheoThang.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\BaoCao_PhieuNhap1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,6 +160,12 @@
     <Compile Include="TimKiem_CTPN.Designer.cs">
       <DependentUpon>TimKiem_CTPN.cs</DependentUpon>
     </Compile>
+    <Compile Include="timkiem_ctpn_2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="timkiem_ctpn_2.Designer.cs">
+      <DependentUpon>timkiem_ctpn_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimKiem_Sach.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +174,16 @@
     </Compile>
     <EmbeddedResource Include="BaoCao_PhieuNhap.resx">
       <DependentUpon>BaoCao_PhieuNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComboBox_List.resx">
+      <DependentUpon>ComboBox_List.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormThatBai.resx">
+      <DependentUpon>FormThatBai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BaoCao_TheoThang.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BaoCao_TheoThang.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\BaoCao_PhieuNhap.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -199,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TimKiem_CTPN.resx">
       <DependentUpon>TimKiem_CTPN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="timkiem_ctpn_2.resx">
+      <DependentUpon>timkiem_ctpn_2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimKiem_Sach.resx">
       <DependentUpon>TimKiem_Sach.cs</DependentUpon>

@@ -54,14 +54,12 @@ namespace BTL_QuanLyBanSach2
             try
             {
                 ketnoi();
-
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM tblPhieuNhap", connection);
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
                 cb_soPhieuNhap.DisplayMember = "sSoPN";
                 cb_soPhieuNhap.ValueMember = "sSoPN";
                 cb_soPhieuNhap.DataSource = dataTable;
-
                 ngatketnoi();
             }
             catch (Exception ex)
@@ -74,7 +72,6 @@ namespace BTL_QuanLyBanSach2
         {
             ReportDocument rpt = new ReportDocument();
             rpt.Load(@"D:\DaiHocMoHaNoi\HKII.2021-2022\LapTrinhHuongSuKien\BTL_QuanLyBanSach\BTL_QuanLyBanSach2\BTL_QuanLyBanSach2\Reports\BaoCao_PhieuNhap.rpt");
-
 
             TableLogOnInfo tableLogOnInfo = new TableLogOnInfo();
             tableLogOnInfo.ConnectionInfo.ServerName = @"DESKTOP-MQPJKPQ\SQLEXPRESS";
@@ -97,6 +94,7 @@ namespace BTL_QuanLyBanSach2
         private void BaoCao_PhieuNhap_Load(object sender, EventArgs e)
         {
             HienDS_ComboBox_PhieuNhap();
+            load_DS_CTPN_LapPhieu();
         }
 
         private void btn_inPhieuNhap_Click(object sender, EventArgs e)
@@ -110,5 +108,58 @@ namespace BTL_QuanLyBanSach2
                 showReportPN("BaoCao_PhieuNhap.rpt", "Quản lý bán sách");
             }
         }
+
+        public void load_DS_CTPN_LapPhieu()
+        {
+            try
+            {
+                string constr = ConfigurationManager.ConnectionStrings["BTL_QuanLyBanSach"].ConnectionString;
+                SqlConnection conn = new SqlConnection(constr);
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(constr, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "dbo.proc_BC_TheoThang";
+                cmd.Parameters.AddWithValue("@Thang", txtThang.Text);
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                sqlDataAdapter.SelectCommand = cmd;
+                DataTable dataTable = new DataTable();
+                sqlDataAdapter.Fill(dataTable);
+                dgvDanhSach.DataSource = dataTable;
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnIN_Click(object sender, EventArgs e)
+        {
+            ReportDocument rpt = new ReportDocument();
+            rpt.Load(@"D:\DaiHocMoHaNoi\HKII.2021-2022\LapTrinhHuongSuKien\BTL_QuanLyBanSach\BTL_QuanLyBanSach2\BTL_QuanLyBanSach2\Reports\BaoCao_TheoThang.rpt");
+
+            TableLogOnInfo tableLogOnInfo = new TableLogOnInfo();
+            tableLogOnInfo.ConnectionInfo.ServerName = @"DESKTOP-MQPJKPQ\SQLEXPRESS";
+            tableLogOnInfo.ConnectionInfo.DatabaseName = "BTL_QuanLyBanSach";
+            tableLogOnInfo.ConnectionInfo.IntegratedSecurity = true;
+            foreach (Table table in rpt.Database.Tables)
+                table.ApplyLogOnInfo(tableLogOnInfo);
+            //rpt.SummaryInfo.ReportTitle = rptitle;
+            ParameterFieldDefinition pfd = rpt.DataDefinition.ParameterFields["@Thang"];
+            ParameterValues pvl = new ParameterValues();
+            ParameterDiscreteValue pdv = new ParameterDiscreteValue();
+            pdv.Value = txtThang.Text;
+            pvl.Add(pdv);
+            pfd.CurrentValues.Clear();
+            pfd.ApplyCurrentValues(pvl);
+            crystalReportViewer1.ReportSource = rpt;
+            crystalReportViewer1.Refresh();
+            load_DS_CTPN_LapPhieu();
+        }
     }
 }
+
+//select tblSach.sMaSach as [Mã sách], sTenSach as [Tên sách], fSoLuongNhap as [SL nhập], fGiaNhap as [Giá nhập], dNgayNhap as [Ngày nhập], (fSoLuongNhap * fGiaNhap) as [Thành tiền]
